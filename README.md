@@ -21,4 +21,29 @@ cp .env.example .env - прописываем наши креды
 php artisan key:generate
 ```
 3. php artisan migrate --seed
-4. 
+4. Для документирования устанавливаем npm install apidoc -g
+5. Генерация документации для API
+
+Для этого на компьютере должен быть установлен [apidoc](http://apidocjs.com/).
+
+Инсталяция
+```
+npm install apidoc -g
+```
+
+Генерация документации
+```
+apidoc -i app -o public/documentation
+```
+
+6. Примеры запросов
+
+```
+curl --location 'stl/api/slots/availability' --header 'Accept: application/json'
+
+curl --location --request POST 'stl/api/slots/1/hold' --header 'Accept: application/json' --header 'Idempotency-Key: 123'
+
+curl --location --request POST 'stl/api/holds/5/confirm' --header 'Accept: application/json'
+
+curl --location --request DELETE 'stl/api/holds/5' --header 'Accept: application/json'
+```

@@ -15,4 +15,9 @@ class Slot extends Model
         'capacity',
         'remaining',        
     ];
+	
+	protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 }

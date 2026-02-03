@@ -21,8 +21,7 @@ class SlotService {
 			],
 			callback: function () {
 				return 
-					Slot::where('remaining','>',0)
-						->orderBy('id','ASC')
+					Slot::orderBy('id','ASC')
 						->get();
 			}
 		);
@@ -71,11 +70,11 @@ class SlotService {
 	public function holdCancelled(Hold $hold) {
 		
 		if ($hold->status == 'cancelled') {
-			return response()->json(['error' => 'Status already cancelled'], 422, [], JSON_UNESCAPED_UNICODE);		
+			return response()->json(['error' => 'Status already cancelled'], 409, [], JSON_UNESCAPED_UNICODE);		
 		}
 		
 		if ($hold->slot->remaining == $hold->slot->capacity) {
-			return response()->json(['error' => 'Remaining already eq capacity'], 400, [], JSON_UNESCAPED_UNICODE);		
+			return response()->json(['error' => 'Remaining already eq capacity'], 409, [], JSON_UNESCAPED_UNICODE);		
 		}
 
 		DB::transaction(function() use ($hold) {
